@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Image & Video Search App</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="bg-gray-100 text-gray-900 transition-colors duration-300 min-h-screen px-4 sm:px-6 lg:px-8 py-6">
+
+  <!-- 🌐 Header with Title and Dark Mode Toggle -->
+  <header class="flex justify-between items-center mb-10 flex-col sm:flex-row gap-4 sm:gap-0">
+    <h1 class="text-4xl font-extrabold tracking-tight text-center sm:text-left">
+      🌟 Image & Video Search
+    </h1>
+    <button id="darkModeToggle" class="bg-gray-800 text-white px-4 py-2 rounded-full shadow hover:bg-black transition">
+      🌙 Dark Mode
+    </button>
+  </header>
+
+  <!-- 🔍 Search Form -->
+  <div class="flex flex-col sm:flex-row justify-center items-center gap-3 mb-8">
+    <input
+      id="searchInput"
+      type="text"
+      placeholder="Search images or videos..."
+      class="w-full sm:w-1/2 px-4 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 dark:bg-gray-800 dark:text-white"
+    />
+    <button id="searchBtn" class="bg-blue-500 text-white px-4 py-2 rounded-md shadow hover:bg-blue-600 transition">
+      🔍 Search Images
+    </button>
+    <button id="videoSearchBtn" class="bg-purple-500 text-white px-4 py-2 rounded-md shadow hover:bg-purple-600 transition">
+      🎥 Search Videos
+    </button>
+  </div>
+
+  <!-- ❤️ Favorites -->
+  <div class="text-center mb-10">
+    <a href="favorites.html" class="bg-green-500 text-white px-6 py-2 rounded-full shadow hover:bg-green-600 transition">
+      ❤️ View Favorites
+    </a>
+  </div>
+
+  <!-- ⏳ Loader -->
+  <div id="loader" class="hidden flex justify-center my-6">
+    <div class="w-12 h-12 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
+  </div>
+
+  <!-- 🖼️ Gallery Grid -->
+  <div id="gallery" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+    <!-- Dynamic content inserted here -->
+  </div>
+
+  <!-- 🌙 Theme Persistence -->
+  <script>
+    const darkModeToggle = document.getElementById("darkModeToggle");
+    darkModeToggle.addEventListener("click", () => {
+      document.body.classList.toggle("dark");
+      const isDark = document.body.classList.contains("dark");
+      localStorage.setItem("theme", isDark ? "dark" : "light");
+    });
+
+    window.addEventListener("DOMContentLoaded", () => {
+      const savedTheme = localStorage.getItem("theme");
+      if (savedTheme === "dark") {
+        document.body.classList.add("dark");
+      }
+    });
+  </script>
+
+  <script src="script.js"></script>
+</body>
+</html>

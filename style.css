@@ -1,0 +1,44 @@
+/* style.css */
+
+/* Smooth transitions for dark mode */
+body {
+  font-family: Arial, sans-serif;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Animate image hover */
+img:hover {
+  transform: scale(1.02);
+  transition: transform 0.2s;
+}
+
+/* 🌙 Tailwind's dark mode works with class="dark" on <html> */
+html.dark {
+  background-color: #1a202c;
+  color: #f1f1f1;
+}
+
+/* Ensure form and interactive elements respond in dark mode */
+html.dark input,
+html.dark button,
+html.dark a {
+  background-color: #2d3748;
+  color: #f1f1f1;
+}
+
+/* Optional: link hover effect in dark mode */
+html.dark a:hover {
+  color: #63b3ed; /* light blue hover */
+}
+
+/* Optional: button hover in dark mode */
+html.dark button:hover {
+  background-color: #4a5568;
+}
+
+/* Optional: input focus style in dark mode */
+html.dark input:focus {
+  outline: none;
+  border-color: #63b3ed;
+  box-shadow: 0 0 0 2px rgba(99, 179, 237, 0.5);
+}

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Favorites</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 text-gray-800 p-4">
+
+  <div class="flex justify-between items-center mb-4">
+    <h1 class="text-3xl font-bold">❤️ My Favorites</h1>
+    <a href="index.html" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">🔙 Back to Search</a>
+  </div>
+
+  <div id="favoritesGallery" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"></div>
+
+  <script>
+    const gallery = document.getElementById("favoritesGallery");
+    let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
+
+    function renderFavorites() {
+      gallery.innerHTML = "";
+
+      if (favorites.length === 0) {
+        gallery.innerHTML = "<p class='text-center col-span-full'>You have no favorite items yet.</p>";
+        return;
+      }
+
+      favorites.forEach((item, index) => {
+        const container = document.createElement("div");
+        container.className = "relative group";
+
+        let mediaElement;
+
+        if (item.mediaType === "video") {
+          mediaElement = document.createElement("video");
+          mediaElement.controls = true;
+          mediaElement.className = "w-full h-auto rounded shadow-md";
+          mediaElement.innerHTML = `
+            <source src="${item.video_files?.[0]?.link || item.video}" type="video/mp4">
+            Your browser does not support the video tag.
+          `;
+        } else {
+          mediaElement = document.createElement("img");
+          mediaElement.src = item.src?.medium || item.image;
+          mediaElement.alt = item.alt || "Favorite Image";
+          mediaElement.className = "w-full h-auto rounded shadow-md";
+        }
+
+        const removeBtn = document.createElement("button");
+        removeBtn.innerText = "🗑️";
+        removeBtn.title = "Remove from favorites";
+        removeBtn.className = "absolute top-2 right-2 bg-white rounded-full px-2 py-1 text-red-600 shadow opacity-0 group-hover:opacity-100 transition-opacity";
+        removeBtn.onclick = () => {
+          favorites.splice(index, 1);
+          localStorage.setItem("favorites", JSON.stringify(favorites));
+          renderFavorites();
+        };
+
+        container.appendChild(mediaElement);
+        container.appendChild(removeBtn);
+        gallery.appendChild(container);
+      });
+    }
+
+    renderFavorites();
+  </script>
+</body>
+</html>
